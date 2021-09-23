@@ -8,10 +8,7 @@ for(let i = 0;i<liElements.length;i++){
     liElements[i].appendChild(span);
 }
 
-if(localStorage.getItem("sayac") === null){
-    var sayac=0;
-}
-else{
+function localPull(){
     sayac=localStorage.getItem("sayac");
     let ulLocal = document.getElementById("list");
     for(let element=0;element<sayac;element++){
@@ -30,16 +27,21 @@ else{
     }
 }
 
+if(localStorage.getItem("sayac") === null){
+    var sayac=0;
+}
+else{
+    localPull();
+}
+
 function addEvent(){
     var spanElements = document.getElementsByTagName("span");
     for(let i = 0;i<spanElements.length;i++){
     spanElements[i].addEventListener("click",
     function(event){
             if(!(event.composedPath()[0].id==="liveToastBtn")){
-                let deleteLi = document.getElementById(event.composedPath()[1].id);
-                event.composedPath()[1].style.display = "none";
-                localStorage.removeItem(`newElement${deleteLi.id}`);
-                deleteLi.remove();
+                localStorage.removeItem(`newElement${event.composedPath()[1].id}`);
+                event.composedPath()[1].remove();
             }
     }
     )
